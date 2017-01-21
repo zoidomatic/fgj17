@@ -1,6 +1,5 @@
 Teht‰v‰‰:
 - Pelaajan ja tietokoneen l‰hett‰mien aaltojen erottelu toisistaan
-- V‰l‰ht‰v‰ animaatio, kun aallot kohtaavat (piilottamaan aaltojen poiston)
 - Taustamusiikkia pelille
 - Tietokoneen spawnaamien aaltojen v‰rj‰‰minen randomisti
 - Pelaajan spawnaamien aaltojen v‰rj‰‰minen tietyill‰ keyboard inputeilla

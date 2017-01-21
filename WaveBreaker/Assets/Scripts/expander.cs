@@ -24,15 +24,25 @@ public class expander : MonoBehaviour {
 	void Update () {
 		transform.localScale += new Vector3 (truespeed, 0, truespeed);
 
-		if (transform.localScale.x > 21) {
-			Destroy (gameObject);
+        if (transform.localScale.x > 21)
+        {
+            Destroy(gameObject);
+            waveBlaster.lives--;
+            if (waveBlaster.lives == 2)
+            {
+                life1.enabled = false;
+            }
+            else if (waveBlaster.lives == 1) { life2.enabled = false; }
+            else if (waveBlaster.lives == 0) { life3.enabled = false; }
+            if (waveBlaster.lives == 0)
+            {
                 goText.text = "GAME OVER"; //KORVATTAVA
-			// Heittää päävalikkoon?
+                waveBlaster.gameover = true;
+            }
+            // Heittää päävalikkoon?
 
-			waveBlaster.gameover = true;
-
-		}
-	}
+        }
+    }
 
 
 }

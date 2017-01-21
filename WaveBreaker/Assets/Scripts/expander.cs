@@ -36,6 +36,11 @@ public class expander : MonoBehaviour {
         if (transform.localScale.x > 21)
         {
             Destroy(gameObject);
+			waveBlaster.scoremultiplier = 1;
+			waveBlaster.multigrow = 1;
+			waveBlaster.updategrow = true;
+			GameObject.Find ("MultiText").GetComponent<TextMesh> ().text = "x 1";
+
             waveBlaster.lives--;
             if (waveBlaster.lives == 2)
             {

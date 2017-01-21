@@ -4,7 +4,8 @@ using UnityEngine;
 
 
 public class Annihilator : MonoBehaviour {
-	void OnTriggerEnter(Collider other) {
+
+    void OnTriggerEnter(Collider other) {
 		if (other.transform.position.x + transform.position.x == 0) {
 			if (other.gameObject.tag == "Player" || gameObject.tag == "Player") {
 				// Calculate score based on the collision
@@ -21,7 +22,9 @@ public class Annihilator : MonoBehaviour {
 				Debug.Log ("scale x " + transform.localScale.x + "Score: " + score);
 				GameObject.Find ("wavespawn").GetComponent<waveBlaster> ().addToScore (score);
 
-				Destroy (other.gameObject);
+                GameObject.Find("wavespawn").GetComponent<waveBlaster>().playSound("annihilator");
+
+                Destroy (other.gameObject);
 				Destroy (gameObject);
 			}
 		}

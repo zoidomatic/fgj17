@@ -19,9 +19,13 @@ public class waveBlaster : MonoBehaviour {
 	public GameObject waveneg1;
 	public Transform wavespawn;
     Text scoreText;
-    
-	// Use this for initialization
-	void Start () {
+
+    public AudioClip[] clips;
+
+    private AudioSource[] audioSources;
+
+    // Use this for initialization
+    void Start () {
 		cooldown = 0;
 		aicool = 30;
         score = 0;
@@ -29,7 +33,17 @@ public class waveBlaster : MonoBehaviour {
         addToScore(0);
 		firerate = 1;
 		gameovertime = 90;
-	}
+
+
+        audioSources = new AudioSource[clips.Length];
+
+        for(int i = 0;i<clips.Length;i++)
+        {
+            audioSources[i] = gameObject.AddComponent<AudioSource>();
+            audioSources[i].clip = clips[i];
+
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -42,26 +56,35 @@ public class waveBlaster : MonoBehaviour {
 		if (aicool > -1)
 			aicool--;
 		if (gameover == false) {
+            int clipNum = Random.Range(0, 2);
 			if (Input.GetKey ("up") && cooldown < 0) {
 				wavespawn.position = new Vector3 (5F, 0, 0);
 				Instantiate (wave, wavespawn.position, wavespawn.rotation);
 				cooldown = 20 / firerate;
+                audioSources[clipNum].Stop();
+                audioSources[clipNum].Play();
 			}
 			if (Input.GetKey ("down") && cooldown < 0) {
 				wavespawn.position = new Vector3 (-5F, 0, 0);
 				Instantiate (waveneg, wavespawn.position, wavespawn.rotation);
 				cooldown = 20 / firerate;
-			}
+                audioSources[clipNum].Stop();
+                audioSources[clipNum].Play();
+            }
 			if (Input.GetKey ("left") && cooldown < 0) {
 				wavespawn.position = new Vector3 (0, 0, 5F);
 				Instantiate (waveneg, wavespawn.position, wavespawn.rotation);
 				cooldown = 20 / firerate;
-			}
+                audioSources[clipNum].Stop();
+                audioSources[clipNum].Play();
+            }
 			if (Input.GetKey ("right") && cooldown < 0) {
 				wavespawn.position = new Vector3 (0, 0, -5F);
 				Instantiate (wave, wavespawn.position, wavespawn.rotation);
 				cooldown = 20 / firerate;
-			}
+                audioSources[clipNum].Stop();
+                audioSources[clipNum].Play();
+            }
 		}
 
 		if (aicool < 0 && gameover == false) {
@@ -92,5 +115,15 @@ public class waveBlaster : MonoBehaviour {
     public void addToScore(int addedScore) {
         score += addedScore;
 		scoreText.text = score.ToString();
+    }
+
+    public void playSound(string component)
+    {
+        if(component == "annihilator")
+        {
+            int clipNum = Random.Range(2, clips.Length);
+            audioSources[clipNum].Stop();
+            audioSources[clipNum].Play();
+        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 
 public class Annihilator : MonoBehaviour {
@@ -34,7 +34,23 @@ public class Annihilator : MonoBehaviour {
 
 				waveBlaster.flash = true;
 				GameObject.Find("wavespawn").GetComponent<waveBlaster>().playSound("annihilator");
-				Destroy (other.gameObject);
+
+
+                GameObject ngo = new GameObject();
+                TextMesh text = ngo.AddComponent<TextMesh>();
+                text.text = "+" + score;
+                text.transform.position = new Vector3(2, 5.5F, 0);
+                text.transform.rotation = Quaternion.Euler(90, 90, 0);
+                text.transform.localScale = new Vector3(0.2F, 0.2F, 1);
+
+
+                Font ArialFont = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
+                text.font = ArialFont;
+                text.fontSize = 70;
+                text.color = new Color(0.0F, 171.0F / 255.0F, 1.0F);
+                GameObject.Find("wavespawn").GetComponent<waveBlaster>().addScoreText(text);
+                
+                Destroy (other.gameObject);
 				Destroy (gameObject);
 			}
 		}

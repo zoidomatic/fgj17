@@ -4,6 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+public class ScoreText
+{
+    public float curTime_;
+    public TextMesh text_;
+
+    public void setText(TextMesh text)
+    {
+        text_ = text;
+    }
+}
+
+
 public class waveBlaster : MonoBehaviour {
 
 	private float cooldown;
@@ -30,10 +42,12 @@ public class waveBlaster : MonoBehaviour {
 	public AudioClip[] clips;
     private AudioSource[] audioSources;
 
+    private List<ScoreText> scoreTextList;
+
     public static int lives;
     // Use this for initialization
     void Start () {
-		
+        scoreTextList = new List<ScoreText>();
         lives = 3;
 
 		shutflash = 0;
@@ -145,7 +159,9 @@ public class waveBlaster : MonoBehaviour {
 				break;
 			}
 		}
-	}
+
+        updateScoreTexts(timeDelta);
+    }
 
     public void addToScore(int addedScore) {
         score += addedScore;
@@ -165,6 +181,34 @@ public class waveBlaster : MonoBehaviour {
     public float getBPM()
     {
         return BPM;
+    }
+
+    public void addScoreText(TextMesh scoreTextE)
+    {
+        ScoreText sc = new ScoreText();
+        sc.curTime_ = 0;
+        sc.setText(scoreTextE);
+        Debug.Log("SC:" + scoreTextList);
+        scoreTextList.Add(sc);
+
+    }
+
+    void updateScoreTexts(float timeDelta)
+    {
+        Debug.Log("Count:" + scoreTextList.Count);
+        for(int i=scoreTextList.Count-1; i>=0;--i)
+        {
+            Transform trans = scoreTextList[i].text_.transform;
+            scoreTextList[i].curTime_ += timeDelta;
+            scoreTextList[i].text_.transform.position = (new Vector3(trans.position.x, trans.position.y, trans.position.z-scoreTextList[i].curTime_*0.8F));
+            
+            if (scoreTextList[i].text_.transform.position.z < -10)
+            {
+                Destroy(scoreTextList[i].text_.transform.gameObject);
+                scoreTextList.RemoveAt(i);
+
+            }
+        }
     }
     
 }

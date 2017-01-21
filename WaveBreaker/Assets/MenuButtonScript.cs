@@ -24,6 +24,7 @@ public class MenuButtonScript : MonoBehaviour {
     public void handleStartButtonClick()
     {
         SceneManager.LoadScene("wavebreaker");
+		waveBlaster.gameover = false;
     }
 
     public void handleQuitButtonClick()

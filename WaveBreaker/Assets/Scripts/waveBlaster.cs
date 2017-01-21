@@ -8,10 +8,11 @@ public class waveBlaster : MonoBehaviour {
 
 	private float cooldown;
 	private float aicool;
+    private float BPM;
 	private int direction;
     private int score;
 	private float firerate;
-	private int gameovertime;
+	private float gameovertime;
 	private int shutflash;
 	public static bool flash;
 	public static bool gameover;
@@ -23,24 +24,28 @@ public class waveBlaster : MonoBehaviour {
 	public GameObject flashscreen;
 	public static Vector3 pokspos;
     TextMesh scoreText;
-    public AudioClip[] clips;
+    public float BPMStartValue;
+    public float BPMIncreasePerWave;
+    public float WaveSpeedBPMCoeff;    public AudioClip[] clips;
     private AudioSource[] audioSources;
 
     public static int lives;
     // Use this for initialization
     void Start () {
+		
         lives = 3;
 
 		shutflash = 0;
 		flash = false;
 		cooldown = 0;
-		aicool = 30;
+		aicool = 1;
         score = 0;
         scoreText = GameObject.Find("ScoreText").GetComponent<TextMesh>();
         addToScore(0);
 		firerate = 1;
+        BPM = BPMStartValue;
+		gameovertime = 3;
 
-		gameovertime = 180;
 
         audioSources = new AudioSource[clips.Length];
 
@@ -54,17 +59,18 @@ public class waveBlaster : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        float timeDelta = Time.deltaTime;
 		if (gameover)
-			gameovertime--;
-		if (gameovertime == 0) {
+			gameovertime -= timeDelta;
+		if (gameovertime < 0) {
 			if (score > MenuButtonScript.hiscore)
 				MenuButtonScript.hiscore = score;
 			SceneManager.LoadScene ("wavebreaker_menu");
 		}
-		if (cooldown > -1)
-			cooldown--;
-		if (aicool > -1)
-			aicool--;
+		if (cooldown > -0.02)
+			cooldown -= timeDelta;
+		if (aicool > -0.02)
+			aicool -= timeDelta;
 
 		if (shutflash > 0) {
 			shutflash--;
@@ -83,42 +89,41 @@ public class waveBlaster : MonoBehaviour {
 			shutflash = 6;
 			flash = false;
 		}
-
 		if (gameover == false) {
             int clipNum = Random.Range(0, 2);
 			if (Input.GetKey ("up") && cooldown < 0) {
 				wavespawn.position = new Vector3 (5F, 0, 0);
 				Instantiate (wave, wavespawn.position, wavespawn.rotation);
-				cooldown = 20 / firerate;
+				cooldown = 20 / BPM;
                 audioSources[clipNum].Stop();
                 audioSources[clipNum].Play();
 			}
 			if (Input.GetKey ("down") && cooldown < 0) {
 				wavespawn.position = new Vector3 (-5F, 0, 0);
 				Instantiate (waveneg, wavespawn.position, wavespawn.rotation);
-				cooldown = 20 / firerate;
+				cooldown = 20 / BPM;
                 audioSources[clipNum].Stop();
                 audioSources[clipNum].Play();
             }
 			if (Input.GetKey ("left") && cooldown < 0) {
 				wavespawn.position = new Vector3 (0, 0, 5F);
 				Instantiate (waveneg, wavespawn.position, wavespawn.rotation);
-				cooldown = 20 / firerate;
+				cooldown = 20 / BPM;
                 audioSources[clipNum].Stop();
                 audioSources[clipNum].Play();
             }
 			if (Input.GetKey ("right") && cooldown < 0) {
 				wavespawn.position = new Vector3 (0, 0, -5F);
 				Instantiate (wave, wavespawn.position, wavespawn.rotation);
-				cooldown = 20 / firerate;
+				cooldown = 20 / BPM;
                 audioSources[clipNum].Stop();
                 audioSources[clipNum].Play();
             }
 		}
 
 		if (aicool < 0 && gameover == false) {
-			aicool = 80 / firerate;
-			firerate += .02f;
+			aicool = 60/BPM; // seconds per beat
+			BPM += BPMIncreasePerWave;
 			direction = Random.Range (1, 5);
 			switch (direction) {
 			case 1:
@@ -155,4 +160,10 @@ public class waveBlaster : MonoBehaviour {
             audioSources[clipNum].Play();
         }
     }
+
+    public float getBPM()
+    {
+        return BPM;
+    }
+    
 }

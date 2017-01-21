@@ -1,12 +1,9 @@
 Teht‰v‰‰:
 - Pelaajan ja tietokoneen l‰hett‰mien aaltojen erottelu toisistaan
-- ƒ‰niefekti, kun aallot kohtaavat, esim. "ping"/drum beat/jotain muuta
-  - Ei v‰ltt‰m‰tt‰ tarvetta, jos aaltojen tuhoaminen tapahtuu musiikin rytmien mukaan
 - V‰l‰ht‰v‰ animaatio, kun aallot kohtaavat (piilottamaan aaltojen poiston)
 - Taustamusiikkia pelille
 - Tietokoneen spawnaamien aaltojen v‰rj‰‰minen randomisti
 - Pelaajan spawnaamien aaltojen v‰rj‰‰minen tietyill‰ keyboard inputeilla
-- Menu / pause menu
 
 Mietitt‰v‰‰:
 - Rytmien havaitseminen

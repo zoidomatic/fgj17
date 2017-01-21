@@ -1070,11 +1070,7 @@ MonoBehaviour:
   waveneg1: {fileID: 1569583768724466, guid: 71d9ec44658675b4996ed552ad9de6a0, type: 2}
   wavespawn: {fileID: 1893951898}
   flashscreen: {fileID: 657792763}
-<<<<<<< HEAD
-  BPMStartValue: 30
-=======
   BPMStartValue: 60
->>>>>>> f9bd7d62a15c46188ea140523a3b15aea1553923
   BPMIncreasePerWave: 1
   WaveSpeedBPMCoeff: 0.5
   clips:

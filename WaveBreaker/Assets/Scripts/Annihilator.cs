@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+
 public class Annihilator : MonoBehaviour {
 
+	//private float x1;
+	//private float z1;
 
     void OnTriggerEnter(Collider other) {
 		if (other.transform.position.x + transform.position.x == 0 && waveBlaster.gameover == false) {
@@ -23,9 +26,15 @@ public class Annihilator : MonoBehaviour {
 				Debug.Log ("scale x " + transform.localScale.x + "Score: " + score);
 				GameObject.Find ("wavespawn").GetComponent<waveBlaster> ().addToScore (score);
 
-                GameObject.Find("wavespawn").GetComponent<waveBlaster>().playSound("annihilator");
+				if (gameObject.transform.position.x == 0) {
+					waveBlaster.pokspos = new Vector3 (0, 1, (gameObject.transform.position.z - (gameObject.transform.localScale.z / 2)));
+				} else {
+					waveBlaster.pokspos = new Vector3 ((gameObject.transform.position.x + (gameObject.transform.localScale.x / 2)), 1, 0);
+				}
 
-                Destroy (other.gameObject);
+				waveBlaster.flash = true;
+				GameObject.Find("wavespawn").GetComponent<waveBlaster>().playSound("annihilator");
+				Destroy (other.gameObject);
 				Destroy (gameObject);
 			}
 		}

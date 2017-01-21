@@ -12,12 +12,16 @@ public class waveBlaster : MonoBehaviour {
     private int score;
 	private float firerate;
 	private int gameovertime;
+	private bool shutflash;
+	public static bool flash;
 	public static bool gameover;
     public GameObject wave;
 	public GameObject waveneg;
 	public GameObject wave1;
 	public GameObject waveneg1;
 	public Transform wavespawn;
+	public GameObject flashscreen;
+	public static Vector3 pokspos;
     Text scoreText;
     public AudioClip[] clips;
     private AudioSource[] audioSources;
@@ -25,6 +29,8 @@ public class waveBlaster : MonoBehaviour {
     void Start () {
 		
 
+		shutflash = false;
+		flash = false;
 		cooldown = 0;
 		aicool = 30;
         score = 0;
@@ -57,6 +63,18 @@ public class waveBlaster : MonoBehaviour {
 			cooldown--;
 		if (aicool > -1)
 			aicool--;
+		if (shutflash) {
+			shutflash = false;
+			flashscreen.SetActive (false);
+		}
+
+		if (flash) {
+			flashscreen.transform.position = pokspos;
+			flashscreen.SetActive (true);
+			shutflash = true;
+			flash = false;
+		}
+
 		if (gameover == false) {
             int clipNum = Random.Range(0, 2);
 			if (Input.GetKey ("up") && cooldown < 0) {
@@ -91,7 +109,7 @@ public class waveBlaster : MonoBehaviour {
 
 		if (aicool < 0 && gameover == false) {
 			aicool = 80 / firerate;
-			firerate += .1f;
+			firerate += .02f;
 			direction = Random.Range (1, 5);
 			switch (direction) {
 			case 1:

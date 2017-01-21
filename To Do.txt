@@ -3,8 +3,6 @@ Tehtävää:
 - Ääniefekti, kun aallot kohtaavat, esim. "ping"/drum beat/jotain muuta
   - Ei välttämättä tarvetta, jos aaltojen tuhoaminen tapahtuu musiikin rytmien mukaan
 - Välähtävä animaatio, kun aallot kohtaavat (piilottamaan aaltojen poiston)
-- Pieni overlap aalloille ennen poistamista, näyttää paremmalta
-- Score counter, joka tarkistaa kuinka lähellä ruudun keskipistettä aallot törmäävät
 - Taustamusiikkia pelille
 - Tietokoneen spawnaamien aaltojen värjääminen randomisti
 - Pelaajan spawnaamien aaltojen värjääminen tietyillä keyboard inputeilla

@@ -9,6 +9,8 @@ public class waveBlaster : MonoBehaviour {
 	private int direction;
 	public GameObject wave;
 	public GameObject waveneg;
+	public GameObject wave1;
+	public GameObject waveneg1;
 	public Transform wavespawn;
 	// Use this for initialization
 	void Start () {
@@ -50,19 +52,19 @@ public class waveBlaster : MonoBehaviour {
 			switch (direction) {
 			case 1:
 				wavespawn.position = new Vector3 (5F,0,0);
-				Instantiate (wave, wavespawn.position, wavespawn.rotation);
+				Instantiate (wave1, wavespawn.position, wavespawn.rotation);
 				break;
 			case 2:
 				wavespawn.position = new Vector3 (-5F,0,0);
-				Instantiate (waveneg, wavespawn.position, wavespawn.rotation);
+				Instantiate (waveneg1, wavespawn.position, wavespawn.rotation);
 				break;
 			case 3:
 				wavespawn.position = new Vector3 (0,0,5F);
-				Instantiate (waveneg, wavespawn.position, wavespawn.rotation);
+				Instantiate (waveneg1, wavespawn.position, wavespawn.rotation);
 				break;
 			default:
 				wavespawn.position = new Vector3 (0, 0, -5F);
-				Instantiate (wave, wavespawn.position, wavespawn.rotation);
+				Instantiate (wave1, wavespawn.position, wavespawn.rotation);
 				break;
 			}
 		}

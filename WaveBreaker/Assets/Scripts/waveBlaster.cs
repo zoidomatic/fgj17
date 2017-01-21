@@ -22,7 +22,7 @@ public class waveBlaster : MonoBehaviour {
 	public Transform wavespawn;
 	public GameObject flashscreen;
 	public static Vector3 pokspos;
-    Text scoreText;
+    TextMesh scoreText;
     public AudioClip[] clips;
     private AudioSource[] audioSources;
     // Use this for initialization
@@ -34,7 +34,7 @@ public class waveBlaster : MonoBehaviour {
 		cooldown = 0;
 		aicool = 30;
         score = 0;
-        scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
+        scoreText = GameObject.Find("ScoreText").GetComponent<TextMesh>();
         addToScore(0);
 		firerate = 1;
 

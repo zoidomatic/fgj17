@@ -10,8 +10,6 @@ public class MenuButtonScript : MonoBehaviour {
 	void Start () {
         // Initialize button texts
         GameObject.Find("StartButton").GetComponentInChildren<Text>().text = "Start";
-        GameObject.Find("HighScoreButton").GetComponentInChildren<Text>().text = "Highscores";
-        GameObject.Find("CreditsButton").GetComponentInChildren<Text>().text = "Credits";
         GameObject.Find("QuitButton").GetComponentInChildren<Text>().text = "Quit";
 
 

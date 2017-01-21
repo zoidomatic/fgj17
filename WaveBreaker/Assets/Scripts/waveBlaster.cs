@@ -35,8 +35,11 @@ public class waveBlaster : MonoBehaviour {
 	void Update () {
 		if (gameover)
 			gameovertime--;
-		if (gameovertime == 0)
+		if (gameovertime == 0) {
+			if (score > MenuButtonScript.hiscore)
+				MenuButtonScript.hiscore = score;
 			SceneManager.LoadScene ("wavebreaker_menu");
+		}
 		if (cooldown > -1)
 			cooldown--;
 		if (aicool > -1)

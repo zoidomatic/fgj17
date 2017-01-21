@@ -1237,6 +1237,9 @@ MonoBehaviour:
   waveneg1: {fileID: 1569583768724466, guid: 71d9ec44658675b4996ed552ad9de6a0, type: 2}
   wavespawn: {fileID: 1893951898}
   flashscreen: {fileID: 657792763}
+  BPMStartValue: 30
+  BPMIncreasePerWave: 3
+  WaveSpeedBPMCoeff: 0.5
   clips:
   - {fileID: 8300000, guid: 0a9e81a808e78a84d93afa1761a60293, type: 3}
   - {fileID: 8300000, guid: 1d887f500cb5c2f45a46909b03058a6a, type: 3}

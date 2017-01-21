@@ -19,10 +19,11 @@ public class waveBlaster : MonoBehaviour {
 	public GameObject waveneg1;
 	public Transform wavespawn;
     Text scoreText;
-	// Use this for initialization
-	void Start () {
-		public AudioClip[] clips;
-    	private AudioSource[] audioSources;
+    public AudioClip[] clips;
+    private AudioSource[] audioSources;
+    // Use this for initialization
+    void Start () {
+		
 
 		cooldown = 0;
 		aicool = 30;
@@ -32,8 +33,6 @@ public class waveBlaster : MonoBehaviour {
 		firerate = 1;
 
 		gameovertime = 180;
-	}
-
 
         audioSources = new AudioSource[clips.Length];
 

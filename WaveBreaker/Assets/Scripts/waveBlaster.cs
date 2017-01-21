@@ -19,20 +19,20 @@ public class waveBlaster : MonoBehaviour {
 	public GameObject waveneg1;
 	public Transform wavespawn;
     Text scoreText;
+	// Use this for initialization
+	void Start () {
+		public AudioClip[] clips;
+    	private AudioSource[] audioSources;
 
-    public AudioClip[] clips;
-
-    private AudioSource[] audioSources;
-
-    // Use this for initialization
-    void Start () {
 		cooldown = 0;
 		aicool = 30;
         score = 0;
         scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
         addToScore(0);
 		firerate = 1;
-		gameovertime = 90;
+
+		gameovertime = 180;
+	}
 
 
         audioSources = new AudioSource[clips.Length];
@@ -49,8 +49,11 @@ public class waveBlaster : MonoBehaviour {
 	void Update () {
 		if (gameover)
 			gameovertime--;
-		if (gameovertime == 0)
+		if (gameovertime == 0) {
+			if (score > MenuButtonScript.hiscore)
+				MenuButtonScript.hiscore = score;
 			SceneManager.LoadScene ("wavebreaker_menu");
+		}
 		if (cooldown > -1)
 			cooldown--;
 		if (aicool > -1)

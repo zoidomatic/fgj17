@@ -5,16 +5,14 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class MenuButtonScript : MonoBehaviour {
-
+	
+	public static int hiscore;
 	// Use this for initialization
 	void Start () {
         // Initialize button texts
         GameObject.Find("StartButton").GetComponentInChildren<Text>().text = "Start";
-        GameObject.Find("HighScoreButton").GetComponentInChildren<Text>().text = "Highscores";
-        GameObject.Find("CreditsButton").GetComponentInChildren<Text>().text = "Credits";
         GameObject.Find("QuitButton").GetComponentInChildren<Text>().text = "Quit";
-
-
+		GameObject.Find("HiscoreText").GetComponentInChildren<Text>().text = "HI: " + hiscore;
     }
 
     // Update is called once per frame

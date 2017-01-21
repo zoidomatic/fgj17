@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class Annihilator : MonoBehaviour {
 
+
     void OnTriggerEnter(Collider other) {
-		if (other.transform.position.x + transform.position.x == 0) {
+		if (other.transform.position.x + transform.position.x == 0 && waveBlaster.gameover == false) {
 			if (other.gameObject.tag == "Player" || gameObject.tag == "Player") {
 				// Calculate score based on the collision
 				float multiplier = 10;

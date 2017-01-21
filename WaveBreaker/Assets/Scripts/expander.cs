@@ -26,17 +26,11 @@ public class expander : MonoBehaviour {
 
 		if (transform.localScale.x > 21) {
 			Destroy (gameObject);
-            waveBlaster.lives--;
-            if (waveBlaster.lives == 2) {
-                //life1.sprite 
-            }
-            else if (waveBlaster.lives == 1) { }
-            else if (waveBlaster.lives == 0) { }
-            if (waveBlaster.lives == 0) {
                 goText.text = "GAME OVER"; //KORVATTAVA
-                waveBlaster.gameover = true;
-            }
 			// Heittää päävalikkoon?
+
+			waveBlaster.gameover = true;
+
 		}
 	}
 

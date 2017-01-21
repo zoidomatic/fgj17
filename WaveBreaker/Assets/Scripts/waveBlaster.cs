@@ -13,7 +13,7 @@ public class waveBlaster : MonoBehaviour {
     private int score;
 	private float firerate;
 	private float gameovertime;
-	private bool shutflash;
+	private int shutflash;
 	public static bool flash;
 	public static bool gameover;
     public GameObject wave;
@@ -23,28 +23,29 @@ public class waveBlaster : MonoBehaviour {
 	public Transform wavespawn;
 	public GameObject flashscreen;
 	public static Vector3 pokspos;
+    TextMesh scoreText;
     public float BPMStartValue;
     public float BPMIncreasePerWave;
-    public float WaveSpeedBPMCoeff;
-
-
-    Text scoreText;
-    public AudioClip[] clips;
+    public float WaveSpeedBPMCoeff;    public AudioClip[] clips;
     private AudioSource[] audioSources;
+
+    public static int lives;
     // Use this for initialization
     void Start () {
 		
+        lives = 3;
 
-		shutflash = false;
+		shutflash = 0;
 		flash = false;
 		cooldown = 0;
 		aicool = 1;
         score = 0;
-        scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
+        scoreText = GameObject.Find("ScoreText").GetComponent<TextMesh>();
         addToScore(0);
 		firerate = 1;
         BPM = BPMStartValue;
 		gameovertime = 3;
+
 
         audioSources = new AudioSource[clips.Length];
 
@@ -70,18 +71,24 @@ public class waveBlaster : MonoBehaviour {
 			cooldown -= timeDelta;
 		if (aicool > -0.02)
 			aicool -= timeDelta;
-		if (shutflash) {
-			shutflash = false;
+
+		if (shutflash > 0) {
+			shutflash--;
+			flashscreen.transform.localScale += new Vector3 (1, 1, 1);
+		}
+		
+		if (shutflash == 1) {
+			shutflash = 0;
 			flashscreen.SetActive (false);
 		}
 
 		if (flash) {
 			flashscreen.transform.position = pokspos;
+			flashscreen.transform.localScale = new Vector3 (3,3,1);
 			flashscreen.SetActive (true);
-			shutflash = true;
+			shutflash = 6;
 			flash = false;
 		}
-      
 		if (gameover == false) {
             int clipNum = Random.Range(0, 2);
 			if (Input.GetKey ("up") && cooldown < 0) {

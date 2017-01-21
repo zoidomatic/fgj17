@@ -23,8 +23,11 @@ public class waveBlaster : MonoBehaviour {
     private float BPM;
 	private int direction;
     private int score;
-	private float firerate;
+
 	private float gameovertime;
+	public static int scoremultiplier;
+	public static int multigrow;
+	public static bool updategrow;
 	private int shutflash;
 	public static bool flash;
 	public static bool gameover;
@@ -42,14 +45,16 @@ public class waveBlaster : MonoBehaviour {
 	public AudioClip[] clips;
     private AudioSource[] audioSources;
 
-    private List<ScoreText> scoreTextList;
-
-    public static int lives;
+ 	private List<ScoreText> scoreTextList;
+	SpriteRenderer grow2;
+	SpriteRenderer grow3;
+	SpriteRenderer grow4;
+	SpriteRenderer grow5;    public static int lives;
     // Use this for initialization
-    void Start () {
+    void Start () {		
         scoreTextList = new List<ScoreText>();
         lives = 3;
-
+		updategrow = false;
 		shutflash = 0;
 		flash = false;
 		cooldown = 0;
@@ -57,10 +62,10 @@ public class waveBlaster : MonoBehaviour {
         score = 0;
         scoreText = GameObject.Find("ScoreText").GetComponent<TextMesh>();
         addToScore(0);
-		firerate = 1;
         BPM = BPMStartValue;
 		gameovertime = 3;
-
+		scoremultiplier = 1;
+		multigrow = 1;
 
         audioSources = new AudioSource[clips.Length];
 
@@ -70,6 +75,13 @@ public class waveBlaster : MonoBehaviour {
             audioSources[i].clip = clips[i];
 
         }
+
+		grow2 = GameObject.Find("grow_2").GetComponent<SpriteRenderer>();
+		grow3 = GameObject.Find("grow_3").GetComponent<SpriteRenderer>();
+		grow4 = GameObject.Find("grow_4").GetComponent<SpriteRenderer>();
+		grow5 = GameObject.Find("grow_5").GetComponent<SpriteRenderer>();
+
+ 		multiGrowing (1);
     }
 	
 	// Update is called once per frame
@@ -160,6 +172,10 @@ public class waveBlaster : MonoBehaviour {
 			}
 		}
 
+		if (updategrow) {
+			multiGrowing (multigrow);
+			updategrow = false;
+		}
         updateScoreTexts(timeDelta);
     }
 
@@ -189,7 +205,7 @@ public class waveBlaster : MonoBehaviour {
         sc.curTime_ = 0;
         sc.setText(scoreTextE);
         Debug.Log("SC:" + scoreTextList);
-        scoreTextList.Add(sc);
+         scoreTextList.Add(sc);
 
     }
 
@@ -198,8 +214,8 @@ public class waveBlaster : MonoBehaviour {
         Debug.Log("Count:" + scoreTextList.Count);
         for(int i=scoreTextList.Count-1; i>=0;--i)
         {
-            Transform trans = scoreTextList[i].text_.transform;
-            scoreTextList[i].curTime_ += timeDelta;
+           Transform trans = scoreTextList[i].text_.transform;
+           scoreTextList[i].curTime_ += timeDelta;
             scoreTextList[i].text_.transform.position = (new Vector3(trans.position.x, trans.position.y, trans.position.z-scoreTextList[i].curTime_*0.8F));
             
             if (scoreTextList[i].text_.transform.position.z < -10)
@@ -211,4 +227,26 @@ public class waveBlaster : MonoBehaviour {
         }
     }
     
+ 	public void multiGrowing(int i) {
+		switch (i) {
+		case 1:
+			grow2.enabled = false;
+			grow3.enabled = false;
+			grow4.enabled = false;
+			grow5.enabled = false;
+			break;
+		case 2:
+			grow2.enabled = true;
+			break;
+		case 3:
+			grow3.enabled = true;
+			break;
+		case 4:
+			grow4.enabled = true;
+			break;
+		case 5:
+			grow5.enabled = true;
+			break;
+		}
+	}
 }

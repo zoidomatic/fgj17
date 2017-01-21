@@ -18,9 +18,11 @@ public class expander : MonoBehaviour {
 	void Update () {
 		transform.localScale += new Vector3 (truespeed, 0, truespeed);
 
-		if (transform.localScale.x > 25) {
+		if (transform.localScale.x > 21) {
 			scoreText.text = "GAME OVER";
 			Destroy (gameObject);
+			waveBlaster.gameover = true;
+			// Heittää päävalikkoon?
 		}
 	}
 

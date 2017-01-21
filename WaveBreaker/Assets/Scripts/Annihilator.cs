@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Annihilator : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		if (other.transform.position.x + transform.position.x == 0) {
@@ -19,6 +20,7 @@ public class Annihilator : MonoBehaviour {
             
 				Debug.Log ("scale x " + transform.localScale.x + "Score: " + score);
 				GameObject.Find ("wavespawn").GetComponent<waveBlaster> ().addToScore (score);
+
 				Destroy (other.gameObject);
 				Destroy (gameObject);
 			}

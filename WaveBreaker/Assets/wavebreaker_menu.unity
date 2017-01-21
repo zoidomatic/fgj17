@@ -176,14 +176,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-<<<<<<< HEAD
-  - {fileID: 1786867151}
-  - {fileID: 1446163299}
-  - {fileID: 1508374290}
-=======
   - {fileID: 1681948392}
   - {fileID: 1210572600}
->>>>>>> 179d567179497d53765947b11c8c506b3aec8844
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -352,8 +346,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
-=======
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &669434465
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,7 +485,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1210572599}
->>>>>>> 179d567179497d53765947b11c8c506b3aec8844
 --- !u!1 &1446163298
 GameObject:
   m_ObjectHideFlags: 0

@@ -24,9 +24,10 @@ public class waveBlaster : MonoBehaviour {
 	public GameObject flashscreen;
 	public static Vector3 pokspos;
     TextMesh scoreText;
-    public float BPMStartValue;
-    public float BPMIncreasePerWave;
-    public float WaveSpeedBPMCoeff;    public AudioClip[] clips;
+    public float BPMStartValue = 65.0F;
+    public float BPMIncreasePerWave = 1.0F;
+    public float WaveSpeedBPMCoeff = 0.5F;
+	public AudioClip[] clips;
     private AudioSource[] audioSources;
 
     public static int lives;

@@ -7,13 +7,21 @@ public class expander : MonoBehaviour {
 
 	public float speed;
 	private float truespeed;
+
+ 	private float BPM;
+
 	Text goText; //KORVATTAVA
     SpriteRenderer life1;
     SpriteRenderer life2;
     SpriteRenderer life3;
-    // Use this for initialization
-    void Start () {
-		truespeed = speed * .1F;
+	// Use this for initialization
+	void Start () {
+
+        BPM = GameObject.Find("wavespawn").GetComponent<waveBlaster>().getBPM();
+        float BPMCoeff = GameObject.Find("wavespawn").GetComponent<waveBlaster>().WaveSpeedBPMCoeff;
+        // scaling factor 20 reaches end of screen, fit it to BPM
+        truespeed = (BPM*BPMCoeff/60)*20;
+
 		goText = GameObject.Find("GOText").GetComponent<Text>(); //KORVATTAVA
         life1 = GameObject.Find("life_1").GetComponent<SpriteRenderer>();
         life2 = GameObject.Find("life_2").GetComponent<SpriteRenderer>();
@@ -22,7 +30,8 @@ public class expander : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.localScale += new Vector3 (truespeed, 0, truespeed);
+        float timeDelta = Time.deltaTime;
+		transform.localScale += new Vector3 (truespeed*timeDelta, 0, truespeed*timeDelta);
 
         if (transform.localScale.x > 21)
         {
@@ -43,6 +52,5 @@ public class expander : MonoBehaviour {
 
         }
     }
-
-
+ 
 }

@@ -10,7 +10,7 @@ public class expander : MonoBehaviour {
 
  	private float BPM;
 
-	Text goText; //KORVATTAVA
+    SpriteRenderer gameover;
     SpriteRenderer life1;
     SpriteRenderer life2;
     SpriteRenderer life3;
@@ -22,7 +22,7 @@ public class expander : MonoBehaviour {
         // scaling factor 20 reaches end of screen, fit it to BPM
         truespeed = (BPM*BPMCoeff/60)*20;
 
-		goText = GameObject.Find("GOText").GetComponent<Text>(); //KORVATTAVA
+        gameover = GameObject.Find("gameover").GetComponent<SpriteRenderer>();
         life1 = GameObject.Find("life_1").GetComponent<SpriteRenderer>();
         life2 = GameObject.Find("life_2").GetComponent<SpriteRenderer>();
         life3 = GameObject.Find("life_3").GetComponent<SpriteRenderer>();
@@ -45,7 +45,7 @@ public class expander : MonoBehaviour {
             else if (waveBlaster.lives == 0) { life3.enabled = false; }
             if (waveBlaster.lives == 0)
             {
-                goText.text = "GAME OVER"; //KORVATTAVA
+                gameover.enabled = true;
                 waveBlaster.gameover = true;
             }
             // Heittää päävalikkoon?

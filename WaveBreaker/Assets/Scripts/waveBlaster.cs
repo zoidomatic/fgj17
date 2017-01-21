@@ -12,7 +12,7 @@ public class waveBlaster : MonoBehaviour {
     private int score;
 	private float firerate;
 	private int gameovertime;
-	private bool shutflash;
+	private int shutflash;
 	public static bool flash;
 	public static bool gameover;
     public GameObject wave;
@@ -29,7 +29,7 @@ public class waveBlaster : MonoBehaviour {
     void Start () {
 		
 
-		shutflash = false;
+		shutflash = 0;
 		flash = false;
 		cooldown = 0;
 		aicool = 30;
@@ -63,15 +63,22 @@ public class waveBlaster : MonoBehaviour {
 			cooldown--;
 		if (aicool > -1)
 			aicool--;
-		if (shutflash) {
-			shutflash = false;
+
+		if (shutflash > 0) {
+			shutflash--;
+			flashscreen.transform.localScale += new Vector3 (1, 1, 1);
+		}
+		
+		if (shutflash == 1) {
+			shutflash = 0;
 			flashscreen.SetActive (false);
 		}
 
 		if (flash) {
 			flashscreen.transform.position = pokspos;
+			flashscreen.transform.localScale = new Vector3 (3,3,1);
 			flashscreen.SetActive (true);
-			shutflash = true;
+			shutflash = 6;
 			flash = false;
 		}
 

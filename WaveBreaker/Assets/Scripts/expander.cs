@@ -7,11 +7,11 @@ public class expander : MonoBehaviour {
 
 	public float speed;
 	private float truespeed;
-	Text scoreText;
+	Text goText;
 	// Use this for initialization
 	void Start () {
 		truespeed = speed * .1F;
-		scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
+		goText = GameObject.Find("GOText").GetComponent<Text>();
 	}
 	
 	// Update is called once per frame
@@ -19,7 +19,7 @@ public class expander : MonoBehaviour {
 		transform.localScale += new Vector3 (truespeed, 0, truespeed);
 
 		if (transform.localScale.x > 21) {
-			scoreText.text = "GAME OVER";
+			goText.text = "GAME OVER";
 			Destroy (gameObject);
 			waveBlaster.gameover = true;
 			// Heittää päävalikkoon?

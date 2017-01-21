@@ -28,7 +28,7 @@ public class waveBlaster : MonoBehaviour {
         scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
         addToScore(0);
 		firerate = 1;
-		gameovertime = 90;
+		gameovertime = 180;
 	}
 	
 	// Update is called once per frame

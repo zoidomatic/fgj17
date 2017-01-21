@@ -12,7 +12,7 @@ public class MenuButtonScript : MonoBehaviour {
         // Initialize button texts
         GameObject.Find("StartButton").GetComponentInChildren<Text>().text = "Start";
         GameObject.Find("QuitButton").GetComponentInChildren<Text>().text = "Quit";
-		GameObject.Find("HiscoreText").GetComponentInChildren<Text>().text = "HI: " + hiscore;
+		GameObject.Find("HiscoreText").GetComponentInChildren<Text>().text = "Latest Highscore: " + hiscore;
     }
 
     // Update is called once per frame

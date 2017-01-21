@@ -25,9 +25,11 @@ public class waveBlaster : MonoBehaviour {
     TextMesh scoreText;
     public AudioClip[] clips;
     private AudioSource[] audioSources;
+
+    public static int lives;
     // Use this for initialization
     void Start () {
-		
+        lives = 3;
 
 		shutflash = false;
 		flash = false;

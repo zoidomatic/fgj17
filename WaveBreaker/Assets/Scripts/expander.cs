@@ -9,7 +9,7 @@ public class expander : MonoBehaviour {
 	private float truespeed;
 
  	private float BPM;
-	Text goText;
+
 	Text goText; //KORVATTAVA
     SpriteRenderer life1;
     SpriteRenderer life2;

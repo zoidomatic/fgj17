@@ -22,7 +22,6 @@ public class expander : MonoBehaviour {
 			goText.text = "GAME OVER";
 			Destroy (gameObject);
 			waveBlaster.gameover = true;
-			// Heittää päävalikkoon?
 		}
 	}
 

@@ -52,7 +52,8 @@ public class waveBlaster : MonoBehaviour {
 	SpriteRenderer grow4;
 	SpriteRenderer grow5;    public static int lives;
     // Use this for initialization
-    void Start () {		
+    void Start () {
+        gameover = false;
         scoreTextList = new List<ScoreText>();
         lives = 3;
 		updategrow = false;

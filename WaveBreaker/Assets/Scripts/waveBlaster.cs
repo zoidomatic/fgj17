@@ -1,21 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class waveBlaster : MonoBehaviour {
 
 	private int cooldown;
 	private int aicool;
 	private int direction;
-	public GameObject wave;
+    private int score;
+    public GameObject wave;
 	public GameObject waveneg;
 	public GameObject wave1;
 	public GameObject waveneg1;
 	public Transform wavespawn;
+    Text scoreText;
+    
 	// Use this for initialization
 	void Start () {
 		cooldown = 0;
 		aicool = 30;
+        score = 0;
+
+        scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
+        addToScore(0);
 	}
 	
 	// Update is called once per frame
@@ -47,7 +55,7 @@ public class waveBlaster : MonoBehaviour {
 		}
 
 		if (aicool == 0) {
-			aicool = 40;
+			aicool = 60;
 			direction = Random.Range (1, 5);
 			switch (direction) {
 			case 1:
@@ -69,4 +77,9 @@ public class waveBlaster : MonoBehaviour {
 			}
 		}
 	}
+
+    public void addToScore(int addedScore) {
+        score += addedScore;
+		scoreText.text = score.ToString();
+    }
 }

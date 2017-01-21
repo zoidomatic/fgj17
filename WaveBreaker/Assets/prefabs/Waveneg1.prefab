@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114974766086693796}
   - component: {fileID: 114355838472337096}
   m_Layer: 0
-  m_Name: Waveneg 1
+  m_Name: Waveneg1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

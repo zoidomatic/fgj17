@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 65494677164371580}
   - component: {fileID: 114613127691116072}
   m_Layer: 0
-  m_Name: Wave 1
+  m_Name: Wave1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

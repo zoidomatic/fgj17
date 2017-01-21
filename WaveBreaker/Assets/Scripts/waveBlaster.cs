@@ -38,7 +38,8 @@ public class waveBlaster : MonoBehaviour {
 	public Transform wavespawn;
 	public GameObject flashscreen;
 	public static Vector3 pokspos;
-    TextMesh scoreText;
+    private TextMesh scoreText;
+    public static TextMesh endtext;
     public float BPMStartValue = 65.0F;
     public float BPMIncreasePerWave = 1.0F;
     public float WaveSpeedBPMCoeff = 0.5F;
@@ -61,9 +62,10 @@ public class waveBlaster : MonoBehaviour {
 		aicool = 1;
         score = 0;
         scoreText = GameObject.Find("ScoreText").GetComponent<TextMesh>();
+        endtext = GameObject.Find("endtext").GetComponent<TextMesh>();
         addToScore(0);
         BPM = BPMStartValue;
-		gameovertime = 5;
+		gameovertime = 8;
 		scoremultiplier = 1;
 		multigrow = 1;
 
@@ -87,8 +89,20 @@ public class waveBlaster : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         float timeDelta = Time.deltaTime;
-		if (gameover)
-			gameovertime -= timeDelta;
+        if (gameover)
+        {
+            gameovertime -= timeDelta;
+            endtext.text = "press 'R' to restart ("+gameovertime.ToString("F1")+")";
+
+            if (Input.GetKey("r"))
+            {
+                if (score > MenuButtonScript.hiscore)
+                    MenuButtonScript.hiscore = score;
+                gameover = false;
+                SceneManager.LoadScene("wavebreaker");
+            }
+
+        }
 		if (gameovertime < 0) {
 			if (score > MenuButtonScript.hiscore)
 				MenuButtonScript.hiscore = score;

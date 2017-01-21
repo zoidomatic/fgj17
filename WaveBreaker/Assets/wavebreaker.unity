@@ -764,6 +764,11 @@ MonoBehaviour:
   waveneg1: {fileID: 1569583768724466, guid: 71d9ec44658675b4996ed552ad9de6a0, type: 2}
   wavespawn: {fileID: 1893951898}
   flashscreen: {fileID: 657792763}
+  clips:
+  - {fileID: 8300000, guid: 0a9e81a808e78a84d93afa1761a60293, type: 3}
+  - {fileID: 8300000, guid: 1d887f500cb5c2f45a46909b03058a6a, type: 3}
+  - {fileID: 8300000, guid: 67237d72debfca847be6cf764ba1ce06, type: 3}
+  - {fileID: 8300000, guid: c250ee0a07e90474bbe730684e14061e, type: 3}
 --- !u!4 &1893951898
 Transform:
   m_ObjectHideFlags: 0

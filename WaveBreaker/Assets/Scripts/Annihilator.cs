@@ -25,8 +25,9 @@ public class Annihilator : MonoBehaviour {
 				GameObject.Find ("wavespawn").GetComponent<waveBlaster> ().addToScore (score);
 
 				waveBlaster.flash = true;
+				GameObject.Find("wavespawn").GetComponent<waveBlaster>().playSound("annihilator");
 				Destroy (other.gameObject);
-				GameObject.Find("wavespawn").GetComponent<waveBlaster>().playSound("annihilator");				Destroy (gameObject);
+				Destroy (gameObject);
 			}
 		}
 	}

@@ -63,7 +63,7 @@ public class waveBlaster : MonoBehaviour {
         scoreText = GameObject.Find("ScoreText").GetComponent<TextMesh>();
         addToScore(0);
         BPM = BPMStartValue;
-		gameovertime = 3;
+		gameovertime = 5;
 		scoremultiplier = 1;
 		multigrow = 1;
 

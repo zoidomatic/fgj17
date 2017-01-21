@@ -21,6 +21,7 @@ public class waveBlaster : MonoBehaviour {
 	public GameObject waveneg1;
 	public Transform wavespawn;
 	public GameObject flashscreen;
+	public static Vector3 pokspos;
     Text scoreText;
     public AudioClip[] clips;
     private AudioSource[] audioSources;
@@ -68,6 +69,7 @@ public class waveBlaster : MonoBehaviour {
 		}
 
 		if (flash) {
+			flashscreen.transform.position = pokspos;
 			flashscreen.SetActive (true);
 			shutflash = true;
 			flash = false;

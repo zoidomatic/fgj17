@@ -4,6 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+public class ScoreText
+{
+    public float curTime_;
+    public TextMesh text_;
+
+    public void setText(TextMesh text)
+    {
+        text_ = text;
+    }
+}
+
+
 public class waveBlaster : MonoBehaviour {
 
 	private float cooldown;
@@ -11,6 +23,7 @@ public class waveBlaster : MonoBehaviour {
     private float BPM;
 	private int direction;
     private int score;
+
 	private float gameovertime;
 	public static int scoremultiplier;
 	public static int multigrow;
@@ -32,15 +45,14 @@ public class waveBlaster : MonoBehaviour {
 	public AudioClip[] clips;
     private AudioSource[] audioSources;
 
+ 	private List<ScoreText> scoreTextList;
 	SpriteRenderer grow2;
 	SpriteRenderer grow3;
 	SpriteRenderer grow4;
-	SpriteRenderer grow5;
-
-    public static int lives;
+	SpriteRenderer grow5;    public static int lives;
     // Use this for initialization
-    void Start () {
-		
+    void Start () {		
+        scoreTextList = new List<ScoreText>();
         lives = 3;
 		updategrow = false;
 		shutflash = 0;
@@ -69,7 +81,7 @@ public class waveBlaster : MonoBehaviour {
 		grow4 = GameObject.Find("grow_4").GetComponent<SpriteRenderer>();
 		grow5 = GameObject.Find("grow_5").GetComponent<SpriteRenderer>();
 
-		multiGrowing (1);
+ 		multiGrowing (1);
     }
 	
 	// Update is called once per frame
@@ -164,7 +176,8 @@ public class waveBlaster : MonoBehaviour {
 			multiGrowing (multigrow);
 			updategrow = false;
 		}
-	}
+        updateScoreTexts(timeDelta);
+    }
 
     public void addToScore(int addedScore) {
         score += addedScore;
@@ -185,8 +198,36 @@ public class waveBlaster : MonoBehaviour {
     {
         return BPM;
     }
+
+    public void addScoreText(TextMesh scoreTextE)
+    {
+        ScoreText sc = new ScoreText();
+        sc.curTime_ = 0;
+        sc.setText(scoreTextE);
+        Debug.Log("SC:" + scoreTextList);
+         scoreTextList.Add(sc);
+
+    }
+
+    void updateScoreTexts(float timeDelta)
+    {
+        Debug.Log("Count:" + scoreTextList.Count);
+        for(int i=scoreTextList.Count-1; i>=0;--i)
+        {
+           Transform trans = scoreTextList[i].text_.transform;
+           scoreTextList[i].curTime_ += timeDelta;
+            scoreTextList[i].text_.transform.position = (new Vector3(trans.position.x, trans.position.y, trans.position.z-scoreTextList[i].curTime_*0.8F));
+            
+            if (scoreTextList[i].text_.transform.position.z < -10)
+            {
+                Destroy(scoreTextList[i].text_.transform.gameObject);
+                scoreTextList.RemoveAt(i);
+
+            }
+        }
+    }
     
-	public void multiGrowing(int i) {
+ 	public void multiGrowing(int i) {
 		switch (i) {
 		case 1:
 			grow2.enabled = false;

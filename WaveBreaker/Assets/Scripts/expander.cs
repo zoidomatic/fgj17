@@ -14,6 +14,10 @@ public class expander : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		transform.localScale += new Vector3 (truespeed, 0, truespeed);
+
+		if (transform.localScale.x > 25) {
+			Destroy (gameObject);
+		}
 	}
 
 

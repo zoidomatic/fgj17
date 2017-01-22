@@ -60,15 +60,15 @@ public class Annihilator : MonoBehaviour {
             //Debug.Log("scale x " + transform.localScale.x + "Score: " + score);
             GameObject.Find("wavespawn").GetComponent<waveBlaster>().addToScore(score);
 
-            if (gameObject.transform.position.x == 0)
-            { // Räjähdyksen sijainti
-                waveBlaster.pokspos = new Vector3(0, 1, (gameObject.transform.position.z - (gameObject.transform.localScale.z / 2)));
-            }
-            else
-            {
-                waveBlaster.pokspos = new Vector3((gameObject.transform.position.x + (gameObject.transform.localScale.x / 2)), 1, 0);
-            }
-
+		if (gameObject.transform.position.x == 0 && gameObject.transform.position.z == -5) { // Räjähdyksen sijainti
+			waveBlaster.pokspos = new Vector3 (0, 1, (gameObject.transform.position.z + (gameObject.transform.localScale.z / 2)));
+		} else if (gameObject.transform.position.x == 0 && gameObject.transform.position.z == 5) {
+			waveBlaster.pokspos = new Vector3 (0, 1, (gameObject.transform.position.z - (gameObject.transform.localScale.z / 2)));
+		} else if (gameObject.transform.position.x == -5 && gameObject.transform.position.z == 0) {
+			waveBlaster.pokspos = new Vector3 ((gameObject.transform.position.x + (gameObject.transform.localScale.z / 2)), 1, 0);
+		} else {
+			waveBlaster.pokspos = new Vector3((gameObject.transform.position.x - (gameObject.transform.localScale.z / 2)), 1, 0);
+		}
             waveBlaster.flash = true;
             GameObject.Find("wavespawn").GetComponent<waveBlaster>().playSound("annihilator");
 

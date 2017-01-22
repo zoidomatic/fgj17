@@ -115,9 +115,9 @@ public class waveBlaster : MonoBehaviour {
         if (gameover)
         {
             gameovertime -= timeDelta;
-            endtext.text = "press 'R' to restart (" + gameovertime.ToString("F1") + ")";
+            endtext.text = "Press any key to restart (" + gameovertime.ToString("F1") + ")";
 
-            if (Input.GetKey("r"))
+            if (Input.anyKeyDown)
             {
                 if (score > MenuButtonScript.hiscore)
                     MenuButtonScript.hiscore = score;
@@ -305,7 +305,8 @@ public class waveBlaster : MonoBehaviour {
 		}
 
 		if (aicool < 0 && gameover == false) {
-			aicool = 60/BPM; // seconds per beat
+            int clipNum = Random.Range(0, 2);
+            aicool = 60/BPM; // seconds per beat
 			BPM += BPMIncreasePerWave;
 			direction = Random.Range (1, 5);
 			switch (direction) {
@@ -315,13 +316,17 @@ public class waveBlaster : MonoBehaviour {
                     wave1.tag = "Enemy_V_1";
                     enemyO = (GameObject)Instantiate(wave1, wavespawn.position, wavespawn.rotation);
                     //enemyO.tag = "Enemy_V_1";
-				break;
+                    audioSources[clipNum].Stop();
+                    audioSources[clipNum].Play();
+                    break;
 			case 2:
                     Debug.Log("waveneg1A spawned");
                     wavespawn.position = new Vector3 (-5F,0,0);
                     wave1.tag = "Enemy_V_2";
                     enemyO = (GameObject)Instantiate(wave1, wavespawn.position, wavespawn.rotation);//neg
                     //enemyO.tag = "Enemy_V_2";
+                    audioSources[clipNum].Stop();
+                    audioSources[clipNum].Play();
                     break;
 			case 3:
                     Debug.Log("waveneg1B spawned");
@@ -329,6 +334,8 @@ public class waveBlaster : MonoBehaviour {
                     wave1.tag = "Enemy_H_1";
                     enemyO = (GameObject)Instantiate(wave1, wavespawn.position, wavespawn.rotation);//neg
                     //enemyO.tag = "Enemy_H_1";
+                    audioSources[clipNum].Stop();
+                    audioSources[clipNum].Play();
                     break;
 			default:
                     Debug.Log("wave1B spawned");
@@ -336,6 +343,8 @@ public class waveBlaster : MonoBehaviour {
                     wave1.tag = "Enemy_H_2";
                     enemyO = (GameObject)Instantiate(wave1, wavespawn.position, wavespawn.rotation);
                     //enemyO.tag = "Enemy_H_2";
+                    audioSources[clipNum].Stop();
+                    audioSources[clipNum].Play();
                     break;
 			}
 		}

@@ -5,6 +5,18 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Player_V
+  - Player_H
+  - Enemy_V
+  - Enemy_H
+  - Enemy_V_1
+  - Enemy_V_2
+  - Enemy_H_1
+  - Enemy_H_2
+  - Player_V_1
+  - Player_V_2
+  - Player_H_1
+  - Player_H_2
   layers:
   - Default
   - TransparentFX

@@ -191,7 +191,7 @@ public class waveBlaster : MonoBehaviour {
         }
         //////////////
         ////(shield)
-        if (scoremultiplier == 2 && !shield_active)//13
+        if (scoremultiplier == 13 && !shield_active)//13
         {
             GameObject.Find("shield_on").GetComponent<SpriteRenderer>().enabled = true;
         }

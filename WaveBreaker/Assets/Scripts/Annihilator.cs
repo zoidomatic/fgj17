@@ -19,7 +19,7 @@ public class Annihilator : MonoBehaviour {
 
         }
 	}
-
+    
     void destroy(int input, Collider other) {
             //Debug.Log("ENEMY AND PLAYER " + other.gameObject.tag + "___" + this.gameObject.tag);
 

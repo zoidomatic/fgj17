@@ -14,6 +14,7 @@ public class expander : MonoBehaviour {
     SpriteRenderer life1;
     SpriteRenderer life2;
     SpriteRenderer life3;
+    MeshRenderer endtextM;
 	// Use this for initialization
 	void Start () {
 
@@ -26,6 +27,7 @@ public class expander : MonoBehaviour {
         life1 = GameObject.Find("life_1").GetComponent<SpriteRenderer>();
         life2 = GameObject.Find("life_2").GetComponent<SpriteRenderer>();
         life3 = GameObject.Find("life_3").GetComponent<SpriteRenderer>();
+        endtextM = GameObject.Find("endtext").GetComponent<MeshRenderer>(); ;
     }
 	
 	// Update is called once per frame
@@ -50,6 +52,7 @@ public class expander : MonoBehaviour {
             else if (waveBlaster.lives == 0) { life3.enabled = false; }
             if (waveBlaster.lives == 0)
             {
+                endtextM.enabled = true;
                 gameover.enabled = true;
                 waveBlaster.gameover = true;
             }

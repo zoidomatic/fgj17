@@ -22,9 +22,10 @@ GameObject:
   - component: {fileID: 54109065228447752}
   - component: {fileID: 65494677164371580}
   - component: {fileID: 114613127691116072}
+  - component: {fileID: 114622714090493408}
   m_Layer: 0
   m_Name: Wave1
-  m_TagString: Enemy
+  m_TagString: Enemy_V_1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,3 +151,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+--- !u!114 &114622714090493408
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1048004144716886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04ec0817e1a37ad48a7859c327101479, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -17,12 +17,14 @@ public class MenuButtonScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-		
-	}
+        if (Input.GetKey("enter")|| Input.GetKey("return"))
+        {
+            SceneManager.LoadScene("wavebreaker");
+        }
+    }
     public void handleStartButtonClick()
     {
         SceneManager.LoadScene("wavebreaker");
-		waveBlaster.gameover = false;
     }
 
     public void handleQuitButtonClick()

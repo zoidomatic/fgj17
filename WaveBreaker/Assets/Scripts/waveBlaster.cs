@@ -38,12 +38,16 @@ public class waveBlaster : MonoBehaviour {
 	public Transform wavespawn;
 	public GameObject flashscreen;
 	public static Vector3 pokspos;
-    TextMesh scoreText;
+    private TextMesh scoreText;
+    public static TextMesh endtext;
     public float BPMStartValue = 65.0F;
     public float BPMIncreasePerWave = 1.0F;
     public float WaveSpeedBPMCoeff = 0.5F;
 	public AudioClip[] clips;
     private AudioSource[] audioSources;
+
+    public GameObject playerO;
+    public GameObject enemyO;
 
  	private List<ScoreText> scoreTextList;
 	SpriteRenderer grow2;
@@ -51,7 +55,8 @@ public class waveBlaster : MonoBehaviour {
 	SpriteRenderer grow4;
 	SpriteRenderer grow5;    public static int lives;
     // Use this for initialization
-    void Start () {		
+    void Start () {
+        gameover = false;
         scoreTextList = new List<ScoreText>();
         lives = 3;
 		updategrow = false;
@@ -61,9 +66,10 @@ public class waveBlaster : MonoBehaviour {
 		aicool = 1;
         score = 0;
         scoreText = GameObject.Find("ScoreText").GetComponent<TextMesh>();
+        endtext = GameObject.Find("endtext").GetComponent<TextMesh>();
         addToScore(0);
         BPM = BPMStartValue;
-		gameovertime = 5;
+		gameovertime = 8;
 		scoremultiplier = 1;
 		multigrow = 1;
 
@@ -87,8 +93,20 @@ public class waveBlaster : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         float timeDelta = Time.deltaTime;
-		if (gameover)
-			gameovertime -= timeDelta;
+        if (gameover)
+        {
+            gameovertime -= timeDelta;
+            endtext.text = "press 'R' to restart ("+gameovertime.ToString("F1")+")";
+
+            if (Input.GetKey("r"))
+            {
+                if (score > MenuButtonScript.hiscore)
+                    MenuButtonScript.hiscore = score;
+                gameover = false;
+                SceneManager.LoadScene("wavebreaker");
+            }
+
+        }
 		if (gameovertime < 0) {
 			if (score > MenuButtonScript.hiscore)
 				MenuButtonScript.hiscore = score;
@@ -118,31 +136,39 @@ public class waveBlaster : MonoBehaviour {
 		}
 		if (gameover == false) {
             int clipNum = Random.Range(0, 2);
-			if (Input.GetKey ("up") && cooldown < 0) {
-				wavespawn.position = new Vector3 (5F, 0, 0);
-				Instantiate (wave, wavespawn.position, wavespawn.rotation);
+			if ((Input.GetKey ("up")|| Input.GetKey("w")) && cooldown < 0) {
+                Debug.Log("wave_A spawned");
+                wavespawn.position = new Vector3 (5F, 0, 0);
+				playerO = (GameObject)Instantiate (wave, wavespawn.position, wavespawn.rotation);
+                playerO.tag = "Player_V_1";
 				cooldown = 20 / BPM;
                 audioSources[clipNum].Stop();
                 audioSources[clipNum].Play();
 			}
-			if (Input.GetKey ("down") && cooldown < 0) {
-				wavespawn.position = new Vector3 (-5F, 0, 0);
-				Instantiate (waveneg, wavespawn.position, wavespawn.rotation);
-				cooldown = 20 / BPM;
+			if ((Input.GetKey ("down")|| Input.GetKey("s")) && cooldown < 0) {
+                Debug.Log("waveneg_A spawned");
+                wavespawn.position = new Vector3 (-5F, 0, 0);
+				playerO = (GameObject)Instantiate (wave, wavespawn.position, wavespawn.rotation);//neg
+                playerO.tag = "Player_V_2";
+                cooldown = 20 / BPM;
                 audioSources[clipNum].Stop();
                 audioSources[clipNum].Play();
             }
-			if (Input.GetKey ("left") && cooldown < 0) {
-				wavespawn.position = new Vector3 (0, 0, 5F);
-				Instantiate (waveneg, wavespawn.position, wavespawn.rotation);
-				cooldown = 20 / BPM;
+			if ((Input.GetKey ("left")|| Input.GetKey("a")) && cooldown < 0) {
+                Debug.Log("waveneg_B spawned");
+                wavespawn.position = new Vector3 (0, 0, 5F);
+				playerO = (GameObject)Instantiate (wave, wavespawn.position, wavespawn.rotation);//neg
+                playerO.tag = "Player_H_1";
+                cooldown = 20 / BPM;
                 audioSources[clipNum].Stop();
                 audioSources[clipNum].Play();
             }
-			if (Input.GetKey ("right") && cooldown < 0) {
-				wavespawn.position = new Vector3 (0, 0, -5F);
-				Instantiate (wave, wavespawn.position, wavespawn.rotation);
-				cooldown = 20 / BPM;
+			if ((Input.GetKey ("right")|| Input.GetKey("d")) && cooldown < 0) {
+                Debug.Log("wave_B spawned");
+                wavespawn.position = new Vector3 (0, 0, -5F);
+				playerO = (GameObject)Instantiate (wave, wavespawn.position, wavespawn.rotation);
+                playerO.tag = "Player_H_2";
+                cooldown = 20 / BPM;
                 audioSources[clipNum].Stop();
                 audioSources[clipNum].Play();
             }
@@ -154,21 +180,33 @@ public class waveBlaster : MonoBehaviour {
 			direction = Random.Range (1, 5);
 			switch (direction) {
 			case 1:
-				wavespawn.position = new Vector3 (5F,0,0);
-				Instantiate (wave1, wavespawn.position, wavespawn.rotation);
+                    Debug.Log("wave1A spawned");
+                    wavespawn.position = new Vector3 (5F,0,0);
+                    wave1.tag = "Enemy_V_1";
+                    enemyO = (GameObject)Instantiate(wave1, wavespawn.position, wavespawn.rotation);
+                    //enemyO.tag = "Enemy_V_1";
 				break;
 			case 2:
-				wavespawn.position = new Vector3 (-5F,0,0);
-				Instantiate (waveneg1, wavespawn.position, wavespawn.rotation);
-				break;
+                    Debug.Log("waveneg1A spawned");
+                    wavespawn.position = new Vector3 (-5F,0,0);
+                    wave1.tag = "Enemy_V_2";
+                    enemyO = (GameObject)Instantiate(wave1, wavespawn.position, wavespawn.rotation);//neg
+                    //enemyO.tag = "Enemy_V_2";
+                    break;
 			case 3:
+                    Debug.Log("waveneg1B spawned");
 				wavespawn.position = new Vector3 (0,0,5F);
-				Instantiate (waveneg1, wavespawn.position, wavespawn.rotation);
-				break;
+                    wave1.tag = "Enemy_H_1";
+                    enemyO = (GameObject)Instantiate(wave1, wavespawn.position, wavespawn.rotation);//neg
+                    //enemyO.tag = "Enemy_H_1";
+                    break;
 			default:
-				wavespawn.position = new Vector3 (0, 0, -5F);
-				Instantiate (wave1, wavespawn.position, wavespawn.rotation);
-				break;
+                    Debug.Log("wave1B spawned");
+                    wavespawn.position = new Vector3 (0, 0, -5F);
+                    wave1.tag = "Enemy_H_2";
+                    enemyO = (GameObject)Instantiate(wave1, wavespawn.position, wavespawn.rotation);
+                    //enemyO.tag = "Enemy_H_2";
+                    break;
 			}
 		}
 
@@ -204,14 +242,14 @@ public class waveBlaster : MonoBehaviour {
         ScoreText sc = new ScoreText();
         sc.curTime_ = 0;
         sc.setText(scoreTextE);
-        Debug.Log("SC:" + scoreTextList);
+        //Debug.Log("SC:" + scoreTextList);
          scoreTextList.Add(sc);
 
     }
 
     void updateScoreTexts(float timeDelta)
     {
-        Debug.Log("Count:" + scoreTextList.Count);
+        //Debug.Log("Count:" + scoreTextList.Count);
         for(int i=scoreTextList.Count-1; i>=0;--i)
         {
            Transform trans = scoreTextList[i].text_.transform;

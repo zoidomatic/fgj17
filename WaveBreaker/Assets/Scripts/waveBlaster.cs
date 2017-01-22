@@ -117,9 +117,9 @@ public class waveBlaster : MonoBehaviour {
         if (gameover)
         {
             gameovertime -= timeDelta;
-            endtext.text = "Press any key to restart (" + gameovertime.ToString("F1") + ")";
+            endtext.text = "Press [space] to restart (" + gameovertime.ToString("F1") + ")";
 
-            if (Input.anyKeyDown)
+            if (Input.GetKey("space"))
             {
                 if (score > MenuButtonScript.hiscore)
                     MenuButtonScript.hiscore = score;
@@ -254,7 +254,7 @@ public class waveBlaster : MonoBehaviour {
         }
         ////////////
         ////(heart)
-        if (scoremultiplier == 40)//40
+        if (scoremultiplier == 20)//20
         {
             GameObject.Find("hp_on").GetComponent<SpriteRenderer>().enabled = true;
         }

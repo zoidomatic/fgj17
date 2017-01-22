@@ -37,8 +37,8 @@ public class expander : MonoBehaviour {
 
         if (transform.localScale.x > 21)
         {
+			Destroy(gameObject);
             if (!waveBlaster.shield_active) { 
-            Destroy(gameObject);
             waveBlaster.scoremultiplier = 1;
             waveBlaster.multigrow = 1;
             waveBlaster.updategrow = true;

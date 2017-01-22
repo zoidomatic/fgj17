@@ -53,6 +53,7 @@ public class waveBlaster : MonoBehaviour {
     private bool freeze_active;
     private float shield_cd;
     public static bool shield_active;
+	private bool shield_safe;
     private float x2_cd;
     private bool x2_active;
     private int x2_increased;
@@ -79,6 +80,7 @@ public class waveBlaster : MonoBehaviour {
         freeze_active = false;
         shield_cd = 0;
         shield_active = false;
+		shield_safe = false;
         x2_cd = 0;
         x2_active = false;
         x2_increased = 0;
@@ -189,7 +191,7 @@ public class waveBlaster : MonoBehaviour {
         }
         //////////////
         ////(shield)
-        if (scoremultiplier == 13 && !shield_active)//13
+        if (scoremultiplier == 2 && !shield_active)//13
         {
             GameObject.Find("shield_on").GetComponent<SpriteRenderer>().enabled = true;
         }
@@ -199,6 +201,7 @@ public class waveBlaster : MonoBehaviour {
             shield_cd = 5;
             shield_active = true;
             GameObject.Find("inv_text").GetComponent<MeshRenderer>().enabled = true;
+			shield_safe = true;
         }
 
         if (shield_cd > -0.02)
@@ -207,12 +210,17 @@ public class waveBlaster : MonoBehaviour {
             GameObject.Find("inv_text").GetComponent<TextMesh>().text = "INVULNERABLE ("+shield_cd.ToString("F1") + ")";
             shield_cd -= timeDelta;
         }
+
         else if (shield_active)
         {
             GameObject.Find("inv_text").GetComponent<MeshRenderer>().enabled = false;
             Debug.Log("shield disabled");
             shield_active = false;
         }
+		if((shield_cd < 2)&&shield_safe){
+			shield_safe = false;
+			aicool = 2;
+		}
         /////////////
         ////(X2)
         if (scoremultiplier == 5 && !x2_active)//5

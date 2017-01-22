@@ -43,9 +43,9 @@ public class Annihilator : MonoBehaviour {
                 score = (int)(scoremulti * multiplier * (20 - (transform.localScale.x)));
                 //waveBlaster.scoremultiplier += 0.1F;
             }
+            waveBlaster.multigrow++;
         }
 
-            waveBlaster.multigrow++;
             if (waveBlaster.multigrow == 6)
             {
                 waveBlaster.multigrow = 1;
@@ -73,7 +73,14 @@ public class Annihilator : MonoBehaviour {
 
             GameObject ngo = new GameObject();
             TextMesh text = ngo.AddComponent<TextMesh>();
+        if (input == 1) {
             text.text = "+" + score;
+            text.color = new Color(0.0F, 171.0F / 255.0F, 1.0F);
+        }
+        else if (input == 0) {
+            text.text = "0";
+            text.color = Color.red;
+        }
             text.transform.position = new Vector3(2, 5.5F, 0);
             text.transform.rotation = Quaternion.Euler(90, 90, 0);
             text.transform.localScale = new Vector3(0.2F, 0.2F, 1);
@@ -82,7 +89,7 @@ public class Annihilator : MonoBehaviour {
             Font ArialFont = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
             text.font = ArialFont;
             text.fontSize = 70;
-            text.color = new Color(0.0F, 171.0F / 255.0F, 1.0F);
+            
             GameObject.Find("wavespawn").GetComponent<waveBlaster>().addScoreText(text);
 
             Destroy(other.gameObject);

@@ -88,8 +88,8 @@ public class Annihilator : MonoBehaviour {
             text.transform.localScale = new Vector3(0.2F, 0.2F, 1);
 
 
-            Font ArialFont = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
-            text.font = ArialFont;
+            Font Techno = (Font)Resources.Load("Techno.ttf");
+            text.font = Techno;
             text.fontSize = 70;
             
             GameObject.Find("wavespawn").GetComponent<waveBlaster>().addScoreText(text);

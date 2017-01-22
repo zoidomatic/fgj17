@@ -52,6 +52,8 @@ public class Annihilator : MonoBehaviour {
                 waveBlaster.scoremultiplier++;
                 scoremulti = waveBlaster.scoremultiplier;
                 GameObject.Find("MultiText").GetComponent<TextMesh>().text = "x " + (scoremulti).ToString();
+
+
             }
             waveBlaster.updategrow = true;
 

@@ -49,7 +49,15 @@ public class waveBlaster : MonoBehaviour {
     public GameObject playerO;
     public GameObject enemyO;
 
- 	private List<ScoreText> scoreTextList;
+    private float freeze_cd;
+    private bool freeze_active;
+    private float shield_cd;
+    public static bool shield_active;
+    private float x2_cd;
+    private bool x2_active;
+    private int x2_increased;
+
+    private List<ScoreText> scoreTextList;
 	SpriteRenderer grow2;
 	SpriteRenderer grow3;
 	SpriteRenderer grow4;
@@ -62,8 +70,19 @@ public class waveBlaster : MonoBehaviour {
 		updategrow = false;
 		shutflash = 0;
 		flash = false;
+
 		cooldown = 0;
 		aicool = 1;
+
+        //Power-up stuff
+        freeze_cd = 0;
+        freeze_active = false;
+        shield_cd = 0;
+        shield_active = false;
+        x2_cd = 0;
+        x2_active = false;
+        x2_increased = 0;
+
         score = 0;
         scoreText = GameObject.Find("ScoreText").GetComponent<TextMesh>();
         endtext = GameObject.Find("endtext").GetComponent<TextMesh>();
@@ -89,14 +108,14 @@ public class waveBlaster : MonoBehaviour {
 
  		multiGrowing (1);
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update() {
         float timeDelta = Time.deltaTime;
         if (gameover)
         {
             gameovertime -= timeDelta;
-            endtext.text = "press 'R' to restart ("+gameovertime.ToString("F1")+")";
+            endtext.text = "press 'R' to restart (" + gameovertime.ToString("F1") + ")";
 
             if (Input.GetKey("r"))
             {
@@ -107,34 +126,145 @@ public class waveBlaster : MonoBehaviour {
             }
 
         }
-		if (gameovertime < 0) {
-			if (score > MenuButtonScript.hiscore)
-				MenuButtonScript.hiscore = score;
-			SceneManager.LoadScene ("wavebreaker_menu");
-		}
-		if (cooldown > -0.02)
-			cooldown -= timeDelta;
-		if (aicool > -0.02)
-			aicool -= timeDelta;
+        if (gameovertime < 0) {
+            if (score > MenuButtonScript.hiscore)
+                MenuButtonScript.hiscore = score;
+            SceneManager.LoadScene("wavebreaker_menu");
+        }
+        if (cooldown > -0.02)
+            cooldown -= timeDelta;
+        if (aicool > -0.02)
+            aicool -= timeDelta;
 
-		if (shutflash > 0) {
-			shutflash--;
-			flashscreen.transform.localScale += new Vector3 (1, 1, 1);
-		}
-		
-		if (shutflash == 1) {
-			shutflash = 0;
-			flashscreen.SetActive (false);
-		}
+        if (shutflash > 0) {
+            shutflash--;
+            flashscreen.transform.localScale += new Vector3(1, 1, 1);
+        }
 
-		if (flash) {
-			flashscreen.transform.position = pokspos;
-			flashscreen.transform.localScale = new Vector3 (3,3,1);
-			flashscreen.SetActive (true);
-			shutflash = 6;
-			flash = false;
-		}
-		if (gameover == false) {
+        if (shutflash == 1) {
+            shutflash = 0;
+            flashscreen.SetActive(false);
+        }
+
+        if (flash) {
+            flashscreen.transform.position = pokspos;
+            flashscreen.transform.localScale = new Vector3(3, 3, 1);
+            flashscreen.SetActive(true);
+            shutflash = 6;
+            flash = false;
+        }
+
+        //POWERUPS>>>>>>>>>>
+
+        //////(freeze)
+        if (scoremultiplier == 9 && !freeze_active)//9
+        {
+            GameObject.Find("freeze_on").GetComponent<SpriteRenderer>().enabled = true;
+        }
+        if (Input.GetKey("j") && GameObject.Find("freeze_on").GetComponent<SpriteRenderer>().enabled) {
+            GameObject.Find("freeze_on").GetComponent<SpriteRenderer>().enabled = false;
+            freeze_cd = 6;
+            freeze_active = true;
+            this.BPM = this.BPM / (float)1.35;
+            this.WaveSpeedBPMCoeff = this.WaveSpeedBPMCoeff / (float)1.5;
+            GameObject.Find("freeze_text").GetComponent<MeshRenderer>().enabled = true;
+
+        }
+
+        if (freeze_cd > -0.02)
+        {
+            Debug.Log("freeze ongoing");
+            GameObject.Find("freeze_text").GetComponent<TextMesh>().text = "SLOWED (" + freeze_cd.ToString("F1") + ")";
+            freeze_cd -= timeDelta;
+        }
+        else if (freeze_active)
+        {
+            Debug.Log("freeze disabled");
+            freeze_active = false;
+            this.BPM = this.BPM * (float)1.35;
+            this.WaveSpeedBPMCoeff = this.WaveSpeedBPMCoeff * (float)1.5;
+            this.BPM = this.BPM - 20;
+            Debug.Log("BPM: " + this.BPM);
+            GameObject.Find("freeze_text").GetComponent<MeshRenderer>().enabled = false;
+        }
+        //////////////
+        ////(shield)
+        if (scoremultiplier == 13 && !shield_active)//13
+        {
+            GameObject.Find("shield_on").GetComponent<SpriteRenderer>().enabled = true;
+        }
+        if (Input.GetKey("k") && GameObject.Find("shield_on").GetComponent<SpriteRenderer>().enabled)
+        {
+            GameObject.Find("shield_on").GetComponent<SpriteRenderer>().enabled = false;
+            shield_cd = 5;
+            shield_active = true;
+            GameObject.Find("inv_text").GetComponent<MeshRenderer>().enabled = true;
+        }
+
+        if (shield_cd > -0.02)
+        {
+            Debug.Log("shield ongoing");
+            GameObject.Find("inv_text").GetComponent<TextMesh>().text = "INVULNERABLE ("+shield_cd.ToString("F1") + ")";
+            shield_cd -= timeDelta;
+        }
+        else if (shield_active)
+        {
+            GameObject.Find("inv_text").GetComponent<MeshRenderer>().enabled = false;
+            Debug.Log("shield disabled");
+            shield_active = false;
+        }
+        /////////////
+        ////(X2)
+        if (scoremultiplier == 5 && !x2_active)//5
+        {
+            GameObject.Find("x2_on").GetComponent<SpriteRenderer>().enabled = true;
+        }
+        if (Input.GetKey("h") && GameObject.Find("x2_on").GetComponent<SpriteRenderer>().enabled)
+        {
+            GameObject.Find("x2_on").GetComponent<SpriteRenderer>().enabled = false;
+            x2_cd = 7;
+            x2_active = true;
+            x2_increased = scoremultiplier;
+            scoremultiplier = scoremultiplier * 2;
+            GameObject.Find("MultiText").GetComponent<TextMesh>().text = "x " + scoremultiplier;
+            GameObject.Find("MultiText").GetComponent<TextMesh>().color = Color.red;
+        }
+
+        if (x2_cd > -0.02)
+        {
+            Debug.Log("x2 ongoing");
+            x2_cd -= timeDelta;
+        }
+        else if (x2_active)
+        {
+            scoremultiplier = scoremultiplier - x2_increased;
+            if(scoremultiplier < 1) { scoremultiplier = 1; }
+            GameObject.Find("MultiText").GetComponent<TextMesh>().text = "x " + scoremultiplier;
+            GameObject.Find("MultiText").GetComponent<TextMesh>().color = new Color(0,195,255,255);
+            Debug.Log("x2 disabled");
+            x2_active = false;
+        }
+        ////////////
+        ////(heart)
+        if (scoremultiplier == 40)//40
+        {
+            GameObject.Find("hp_on").GetComponent<SpriteRenderer>().enabled = true;
+        }
+        if ((Input.GetKey("m") && GameObject.Find("hp_on").GetComponent<SpriteRenderer>().enabled) && (lives < 3))
+        {
+            GameObject.Find("hp_on").GetComponent<SpriteRenderer>().enabled = false;
+            if (lives == 1) {
+                lives = 2;
+                GameObject.Find("life_2").GetComponent<SpriteRenderer>().enabled = true;
+            }
+            else if (lives == 2) {
+                lives = 3;
+                GameObject.Find("life_1").GetComponent<SpriteRenderer>().enabled = true;
+            }
+        }
+        ///////////
+
+        if (gameover == false) {
             int clipNum = Random.Range(0, 2);
 			if ((Input.GetKey ("up")|| Input.GetKey("w")) && cooldown < 0) {
                 Debug.Log("wave_A spawned");

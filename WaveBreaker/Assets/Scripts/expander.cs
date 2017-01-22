@@ -29,19 +29,20 @@ public class expander : MonoBehaviour {
         life3 = GameObject.Find("life_3").GetComponent<SpriteRenderer>();
         endtextM = GameObject.Find("endtext").GetComponent<MeshRenderer>(); ;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update() {
         float timeDelta = Time.deltaTime;
-		transform.localScale += new Vector3 (truespeed*timeDelta, 0, truespeed*timeDelta);
+        transform.localScale += new Vector3(truespeed * timeDelta, 0, truespeed * timeDelta);
 
         if (transform.localScale.x > 21)
         {
+            if (!waveBlaster.shield_active) { 
             Destroy(gameObject);
-			waveBlaster.scoremultiplier = 1;
-			waveBlaster.multigrow = 1;
-			waveBlaster.updategrow = true;
-			GameObject.Find ("MultiText").GetComponent<TextMesh> ().text = "x 1";
+            waveBlaster.scoremultiplier = 1;
+            waveBlaster.multigrow = 1;
+            waveBlaster.updategrow = true;
+            GameObject.Find("MultiText").GetComponent<TextMesh>().text = "x 1";
 
             waveBlaster.lives--;
             if (waveBlaster.lives == 2)
@@ -59,6 +60,7 @@ public class expander : MonoBehaviour {
             // Heittää päävalikkoon?
 
         }
+    }
     }
  
 }
